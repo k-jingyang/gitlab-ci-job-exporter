@@ -47,5 +47,5 @@ Previously scraped job does not exist in the latest 100 job
 - [ ] Enable multiple GitLab tokens
 - [ ] Setup vscode formatting
 - [ ] Setup `setup.cfg`
-- [ ] Log scrape latency
-- [ ] Configure DEBUG logging
+- [x] Log poll latency
+- [ ] Configure DEBUG logging (and add CLI param for toggling log level)
