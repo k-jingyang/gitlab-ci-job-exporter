@@ -7,12 +7,14 @@ import logging as log
 import yaml
 from yaml.loader import SafeLoader
 import fnmatch
+from timeit import default_timer as timer
 
 gauge = Gauge(
     "gitlab_ci_job_status",
     "Job status, 0 = success, 1 = failed (& everything else), 2 = in-progress",
     ["project", "job"],
 )
+log.basicConfig(level=log.INFO)
 
 
 def poll_gitlab(gl: gitlab.Gitlab, jobs_config: dict[str, list[str]]):
@@ -26,6 +28,7 @@ def poll_gitlab(gl: gitlab.Gitlab, jobs_config: dict[str, list[str]]):
 
     # Get jobs for each project
     for project_name, job_patterns in jobs_config.items():
+        log.debug(f"Polling {project_name}")
         try:
             project = gl.projects.get(project_name)
 
@@ -49,7 +52,7 @@ def poll_gitlab(gl: gitlab.Gitlab, jobs_config: dict[str, list[str]]):
                         latest_unique_jobs[project_name][job_name] = job
 
         except gitlab.GitlabError as e:
-            log.error(f"Skipping {project} because {e}")
+            log.error(f"Skipping {project_name} because {e}")
 
     # Process collected data and expose status metric
     for project_name, jobs_in_project in latest_unique_jobs.items():
@@ -95,5 +98,8 @@ if __name__ == "__main__":
     start_http_server(9090)
 
     while True:
+        start = timer()
         poll_gitlab(gl, jobs_config)
+        end = timer()
+        log.info(f"Polling GitLab took {end-start} seconds") 
         time.sleep(10)
