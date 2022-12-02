@@ -1,0 +1,7 @@
+- project: group/project1
+  jobs:
+    - "job_name_1"
+    - "job_name_2"
+- project: k.jingyang/pipeline-test
+  jobs:
+    - "*" # supports Unix shell-style wildcards

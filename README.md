@@ -1,15 +1,19 @@
-## Justification 
 
-Why not use `gitlab-ci-pipelines-exporter`?
+## GitLab Job Exporter
 
-`gitlab-ci-pipelines-exporter` should still be used to give us an overview of all our latest pipelines, and developers will need this too
+Expose the status of GitLab CI jobs as Prometheus metrics
+## Why not `gitlab-ci-pipelines-exporter`?
+
+[`gitlab-ci-pipelines-exporter`](https://github.com/mvisonneau/gitlab-ci-pipelines-exporter) only gives information about latest pipeline. It is close to impossible to obtain metrics on different pipelines with different sets of jobs that run in the same project.
+
+`gitlab-ci-pipelines-exporter` should still be the go-to tooling to give an overview of the latest pipelines.
 
 ## Requirements
 
 1. Able to get the status of GitLab CI jobs (even from child pipelines)
 1. Able to configure jobs to look out for
    - e.g. Give me the status of this job in its latest run 
-1. **Stretch** Able to use multiple tokens to scrape multiple projects
+2. Able to use multiple tokens to scrape multiple projects
 ## Limitation
 1. As it's not feasible to enumerate all jobs for each project, the search space will be restricted to the latest 100 jobs of each project
 
