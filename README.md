@@ -39,3 +39,11 @@ gitlab_ci_job_status{project="group/project", job="job_name_1"} 0
 
 Previously scraped job does not exist in the latest 100 job
   - Metric to be garbage collected (i.e. not exposed)
+
+
+## To-Do
+- [ ] Garbage collection
+- [ ] Use CLI library
+- [ ] Enable multiple GitLab tokens
+- [ ] Setup vscode formatting
+- [ ] Setup `setup.cfg`
