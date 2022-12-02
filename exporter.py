@@ -54,10 +54,13 @@ def poll_gitlab(gl: gitlab.Gitlab, jobs_config: dict[str, list[str]]):
     # Process collected data and expose status metric
     for project_name, jobs_in_project in latest_unique_jobs.items():
         for job_name, job in jobs_in_project.items():
-            if job.attributes["status"] == "success":
-                gauge.labels(project=project_name, job=job_name).set(0)
-            else:
-                gauge.labels(project=project_name, job=job_name).set(1)
+            match job.attributes["status"]:
+                case "success":
+                    gauge.labels(project=project_name, job=job_name).set(0)
+                case "pending":
+                    gauge.labels(project=project_name, job=job_name).set(2)
+                case _:
+                    gauge.labels(project=project_name, job=job_name).set(1)
 
 
 def parse_config(config_path: str) -> dict[str : list[str]]:
