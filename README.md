@@ -13,7 +13,9 @@ Expose the status of GitLab CI jobs as Prometheus metrics
 1. Able to get the status of GitLab CI jobs (even from child pipelines)
 1. Able to configure jobs to look out for
    - e.g. Give me the status of this job in its latest run 
-2. Able to use multiple tokens to scrape multiple projects
+1. Able to use multiple tokens to scrape multiple projects
+1. Only scrapes the default branch
+
 ## Limitation
 1. As it's not feasible to enumerate all jobs for each project, the search space will be restricted to the latest 100 jobs of each project
 
@@ -49,3 +51,4 @@ Previously scraped job does not exist in the latest 100 job
 - [ ] Setup `setup.cfg`
 - [x] Log poll latency
 - [ ] Configure DEBUG logging (and add CLI param for toggling log level)
+- [ ] Filter to default branch
