@@ -66,7 +66,7 @@ def poll_gitlab(gl: gitlab.Gitlab, jobs_config: dict[str, list[str]]):
                     gauge.labels(project=project_name, job=job_name).set(1)
 
 
-def parse_config(config_path: str) -> dict[str : list[str]]:
+def parse_config(config_path: str) -> dict[str, list[str]]:
 
     # jobs_config = {
     #   projectName: [jobName1, jobName2]
